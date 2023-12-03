@@ -1,0 +1,18 @@
+.campoTexto input{
+    background-color: #F0EFFF;
+    border-radius: 8px;
+    border: 0px;
+    width: 270px;
+    height: 48px;
+    padding-left: 30px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    
+}
+
+input::placeholder{
+    color: #A7A3FF;
+}

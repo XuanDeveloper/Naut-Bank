@@ -1,0 +1,96 @@
+:root {
+  --cor-escura: #333;
+  --cor-clara: #E5E5E5;
+  --cor-link: #1E40AF;
+}
+
+.mainLogin {
+  color: var(--cor-clara);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--cor-escura); /* Cor de fundo escura */
+}
+
+.LoginInfo {
+  margin-top: 10vw;
+  margin-left: 8vw;
+}
+
+.Login {
+  margin-top: 5vw;
+  margin-right: 8vw;
+}
+
+.Baleia {
+  width: 35%;
+}
+
+.linha-vertical2 {
+  height: 500px;
+  border-right: 3px solid var(--cor-link);
+  margin-top: 100px;
+}
+
+@media (max-width: 1340px) {
+  .Baleia {
+      display: none;
+  }
+
+  .mainLogin .linha-vertical2 {
+      display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .Baleia,
+  .mainLogin .linha-vertical2 {
+      display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .Baleia,
+  .mainLogin .linha-vertical2 {
+      display: none;
+  }
+}
+
+@media (max-width: 584px) {
+  .mainLogin {
+      max-width: 100%;
+      overflow-y: scroll;
+  }
+
+  .mainLogin .linha-vertical2 {
+      display: none;
+  }
+
+  .mainCadastro::-webkit-scrollbar {
+      width: 5px;
+  }
+}
+
+@media (max-width: 430px) {
+  .LoginInfo {
+      display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+      max-width: 100%;
+      flex-direction: column;
+  }
+
+  .Login {
+      max-width: 80%;
+      margin-right: 0px;
+  }
+
+  .LoginInfo,
+  .LoginInfo .Baleia,
+  .mainLogin .linha-vertical2 {
+      display: none;
+  }
+}

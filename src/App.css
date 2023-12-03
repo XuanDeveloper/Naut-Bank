@@ -1,0 +1,20 @@
+:root {
+    --cor-fundo: #333; /* Cor de fundo escura */
+    --cor-texto: #E5E5E5; /* Cor do texto */
+}
+
+.root {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    margin: 0; /* Removendo margens padrão do body */
+}
+
+@media (max-width: 320px) {
+    body {
+        margin: 0; /* Removendo margens padrão do body */
+    }
+}

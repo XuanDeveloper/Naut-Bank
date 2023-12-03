@@ -1,0 +1,49 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 302px;
+    background-color: #333; /* Cor de fundo escura */
+    padding: 20px; /* Adicionei um espaçamento interno para melhor visualização */
+}
+
+.loginForm h2 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 470;
+    font-size: 30px;
+    line-height: 45px;
+    color: #fff; /* Cor do texto branca */
+}
+
+.CampoEmail {
+    margin-bottom: 30px;
+}
+
+.loginForm a {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end; /* Corrigi o valor da propriedade */
+    text-decoration: none;
+    color: #fff; /* Cor do texto branca */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.botao {
+    margin-top: 40px;
+}
+
+.loginForm p {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #B5B5B5; /* Mantive a cor original para este elemento */
+}

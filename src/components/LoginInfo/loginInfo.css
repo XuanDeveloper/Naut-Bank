@@ -1,0 +1,49 @@
+:root {
+    --cor-texto: #E5E5E5;
+    --cor-link: #1E40AF;
+}
+
+.loginInfo h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 75px;
+    color: var(--cor-texto);
+}
+
+.loginInfo h2 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 52px;
+    color: var(--cor-texto);
+}
+
+.loginInfo p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--cor-texto);
+}
+
+.register {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.register a {
+    text-decoration: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--cor-link);
+    cursor: pointer;
+}
