@@ -25,7 +25,7 @@ db.connect((err) => {
 app.use(express.json());
 
 // Rota de cadastro
-app.post('/signup', async (req, res) => {
+app.post('/cadastro', async (req, res) => {
   const { nome,email,cpf,senha} = req.body;
 
   try {
@@ -44,7 +44,7 @@ app.post('/signup', async (req, res) => {
     );
   } catch (error) {
     console.error('Erro ao hashear a senha:', error);
-    res.status(500).json({ error: 'Erro interno' });
+    res.status(500).json({ error: 'Dados Já Cadastrados'});
   }
 });
 
