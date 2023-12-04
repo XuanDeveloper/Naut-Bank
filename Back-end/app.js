@@ -24,7 +24,7 @@ db.connect((err) => {
 
 app.use(express.json());
 
-// Rota de cadastro
+// Rota de cadastr
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
 
