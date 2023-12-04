@@ -6,6 +6,8 @@ const saltRounds = 10;
 const app = express();
 const port = 6002;
 
+
+// conexão com o server
 const db = mysql.createConnection({
   host: '192.168.1.117',
   user: 'root',
