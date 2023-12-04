@@ -7,7 +7,7 @@ const app = express();
 const port = 6002;
 
 const db = mysql.createConnection({
-  host: '192.168.1.117',
+  host: '45.225.170.64',
   user: 'root',
   password: 'euamogatos',
   database: 'naut_login',
@@ -26,13 +26,13 @@ app.use(express.json());
 
 // Rota de cadastro
 app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+  const { nome,email,cpf,senha} = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(senha, saltRounds);
     db.query(
-      'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, hashedPassword],
+      'INSERT INTO usuarios (nome,email,cpf,senha) VALUES (?,?,?,?)',
+      [nome,email,cpf,hashedPassword],
       (error, results) => {
         if (error) {
           console.error('Erro ao cadastrar usuário:', error);
@@ -50,28 +50,40 @@ app.post('/signup', async (req, res) => {
 
 // Rota de login
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { nome, senha } = req.body;
 
-  db.query(
-    'SELECT * FROM users WHERE username = ?',
-    [username],
-    async (error, results) => {
-      if (error) {
-        console.error('Erro ao buscar usuário:', error);
-        res.status(500).json({ error: 'Erro ao buscar usuário' });
-      } else if (results.length > 0) {
-        const match = await bcrypt.compare(password, results[0].password);
-        if (match) {
-          res.status(200).json({ message: 'Login bem-sucedido' });
-        } else {
-          res.status(401).json({ error: 'Credenciais inválidas' });
-        }
+    const results = await getUserFromDB(nome);
+
+    if (results.length > 0) {
+      const match = await bcrypt.compare(senha, results[0].senha);
+
+      if (match) {
+        res.status(200).json({ message: 'Login bem-sucedido' });
       } else {
         res.status(401).json({ error: 'Credenciais inválidas' });
       }
+    } else {
+      res.status(401).json({ error: 'Credenciais inválidas' });
     }
-  );
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    res.status(500).json({ error: 'Erro ao buscar usuário' });
+  }
 });
+
+// Função para obter usuário do banco de dados
+async function getUserFromDB(nome) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT * FROM usuarios WHERE nome = ?', [nome], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
