@@ -1,15 +1,17 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const app = express();
+app.use(cors());
 const port = 6002;
 
 
 // conexão com o server
 const db = mysql.createConnection({
-  host: '45.225.170.64',
+  host: '192.168.1.117',
   user: 'root',
   password: 'euamogatos',
   database: 'naut_login',
@@ -29,6 +31,10 @@ app.use(express.json());
 // Rota de cadastro
 app.post('/cadastro', async (req, res) => {
   const { nome,email,cpf,senha,saldo} = req.body;
+
+  res.header('Access-Control-Allow-Origin', 'http://192.168.1.117:6006');
+  res.header('Access-Control-Allow-Methods', 'POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
 
   try {
     const hashedPassword = await bcrypt.hash(senha, saltRounds);
