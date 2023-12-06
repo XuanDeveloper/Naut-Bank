@@ -26,13 +26,13 @@ app.use(express.json());
 
 // Rota de cadastro
 app.post('/cadastro', async (req, res) => {
-  const { nome,email,cpf,senha} = req.body;
+  const { nome,email,cpf,senha,saldo} = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(senha, saltRounds);
     db.query(
-      'INSERT INTO usuarios (nome,email,cpf,senha) VALUES (?,?,?,?)',
-      [nome,email,cpf,hashedPassword],
+      'INSERT INTO usuarios (nome,email,cpf,senha,saldo) VALUES (?,?,?,?,?)',
+      [nome,email,cpf,hashedPassword,saldo],
       (error, results) => {
         if (error) {
           console.error('Erro ao cadastrar usuário:', error);
@@ -59,7 +59,14 @@ app.post('/login', async (req, res) => {
       const match = await bcrypt.compare(senha, results[0].senha);
 
       if (match) {
-        res.status(200).json({ message: 'Login bem-sucedido' });
+        const usuario = await obterNomeESaldoDoUsuario(results[0].id);
+
+        res.status(200).json({
+          message: 'Login bem-sucedido',
+          nome: usuario.nome,
+          saldo: usuario.saldo
+        });
+
       } else {
         res.status(401).json({ error: 'Credenciais inválidas' });
       }
@@ -72,7 +79,26 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Função para obter usuário do banco de dados
+
+
+
+// Função para obter nome e saldo do usuário do banco de dados
+async function obterNomeESaldoDoUsuario(idUsuario) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT nome, saldo FROM usuarios WHERE id = ?', [idUsuario], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        const usuario = {
+          nome: results[0].nome,
+          saldo: results[0].saldo
+        };
+        resolve(usuario);
+      }
+    });
+  });
+}
+
 async function getUserFromDB(nome) {
   return new Promise((resolve, reject) => {
     db.query('SELECT * FROM usuarios WHERE nome = ?', [nome], (error, results) => {
@@ -85,6 +111,16 @@ async function getUserFromDB(nome) {
   });
 }
 
+
+
+
+
+
+
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+
+
