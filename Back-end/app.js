@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 const saltRounds = 10;
 
 const app = express();
@@ -79,6 +80,66 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+
+
+
+// Rota para realizar uma transação
+app.post('/transacao', async (req, res) => {
+  const { remetente, destinatario, valor } = req.body;
+
+  console.log('Dados de entrada:', remetente, destinatario, valor);
+
+  // Encontrar usuários com base no nome, CPF ou e-mail
+  const remetenteUser = await findUser(remetente);
+  const destinatarioUser = await findUser(destinatario);
+
+  console.log('Remetente:', remetenteUser);
+  console.log('Destinatário:', destinatarioUser);
+
+  if (remetenteUser && destinatarioUser && valor > 0 && remetenteUser.saldo >= valor) {
+    try {
+      // Atualizar saldo do remetente
+      await updateSaldo(remetenteUser.id, remetenteUser.saldo - valor);
+
+      // Atualizar saldo do destinatário
+      await updateSaldo(destinatarioUser.id, destinatarioUser.saldo + valor);
+
+      console.log('Transação realizada com sucesso.');
+      res.json({ message: 'Transação realizada com sucesso.' });
+    } catch (error) {
+      console.error('Erro ao realizar a transação:', error);
+      res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  } else {
+    console.log('Transação inválida');
+    res.status(400).json({ error: 'Transação inválida.' });
+  }
+});
+
+// Função para atualizar o saldo no banco de dados
+async function updateSaldo(userId, newSaldo) {
+  return db.promise().query('UPDATE usuarios SET saldo = ? WHERE id = ?', [Number(newSaldo), userId]);
+}
+
+// Função para encontrar usuário por nome, CPF ou e-mail
+async function findUser(identifier) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      'SELECT * FROM usuarios WHERE nome = ? OR cpf = ? OR email = ?',
+      [identifier, identifier, identifier],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        } else if (results.length > 0) {
+          resolve(results[0]);
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
+}
 
 
 
