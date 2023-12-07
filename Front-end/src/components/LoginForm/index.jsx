@@ -16,7 +16,9 @@ const LoginForm = () => {
         }
         
     }
+  
     return ( 
+       <div className="CardL"> 
         <div className="loginForm">
             <h2>Entrar</h2>
             <CampoTexto className="CampoEmail" type="text" placeholder="Digite o seu E-mail"/>
@@ -24,8 +26,10 @@ const LoginForm = () => {
             <a><Link to="/cadastro">Esqueceu sua senha</Link></a>
             <Botao funcao={handleSubmit} texto="Entrar"/>
            
+           
             
         </div>
+       </div> 
      );
 }
  

@@ -1,6 +1,6 @@
 :root {
     --cor-texto: #E5E5E5;
-    --cor-link: #1E40AF;
+    --cor-link: #080808;
 }
 
 .loginInfo h1 {
@@ -44,6 +44,6 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
-    color: var(--cor-link);
+    color: #1a1919;
     cursor: pointer;
 }
