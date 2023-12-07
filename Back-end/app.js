@@ -1,11 +1,16 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 const saltRounds = 10;
 
 const app = express();
+app.use(cors());
 const port = 6002;
 
+
+// conexão com o server
 const db = mysql.createConnection({
   host: '192.168.1.117',
   user: 'root',
@@ -25,14 +30,18 @@ db.connect((err) => {
 app.use(express.json());
 
 // Rota de cadastro
-app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+app.post('/cadastro', async (req, res) => {
+  const { nome,email,cpf,senha,saldo} = req.body;
+
+  res.header('Access-Control-Allow-Origin', 'http://192.168.1.117:6006');
+  res.header('Access-Control-Allow-Methods', 'POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
 
   try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(senha, saltRounds);
     db.query(
-      'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, hashedPassword],
+      'INSERT INTO usuarios (nome,email,cpf,senha,saldo) VALUES (?,?,?,?,?)',
+      [nome,email,cpf,hashedPassword,saldo],
       (error, results) => {
         if (error) {
           console.error('Erro ao cadastrar usuário:', error);
@@ -44,35 +53,143 @@ app.post('/signup', async (req, res) => {
     );
   } catch (error) {
     console.error('Erro ao hashear a senha:', error);
-    res.status(500).json({ error: 'Erro interno' });
+    res.status(500).json({ error: 'Dados Já Cadastrados'});
   }
 });
 
 // Rota de login
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { nome, senha } = req.body;
 
-  db.query(
-    'SELECT * FROM users WHERE username = ?',
-    [username],
-    async (error, results) => {
-      if (error) {
-        console.error('Erro ao buscar usuário:', error);
-        res.status(500).json({ error: 'Erro ao buscar usuário' });
-      } else if (results.length > 0) {
-        const match = await bcrypt.compare(password, results[0].password);
-        if (match) {
-          res.status(200).json({ message: 'Login bem-sucedido' });
-        } else {
-          res.status(401).json({ error: 'Credenciais inválidas' });
-        }
+    const results = await getUserFromDB(nome);
+
+    if (results.length > 0) {
+      const match = await bcrypt.compare(senha, results[0].senha);
+
+      if (match) {
+        const usuario = await obterNomeESaldoDoUsuario(results[0].id);
+
+        res.status(200).json({
+          message: 'Login bem-sucedido',
+          nome: usuario.nome,
+          saldo: usuario.saldo
+        });
+
       } else {
         res.status(401).json({ error: 'Credenciais inválidas' });
       }
+    } else {
+      res.status(401).json({ error: 'Credenciais inválidas' });
     }
-  );
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    res.status(500).json({ error: 'Erro ao buscar usuário' });
+  }
 });
+
+
+
+
+
+// Rota para realizar uma transação
+app.post('/transacao', async (req, res) => {
+  const { remetente, destinatario, valor } = req.body;
+
+  console.log('Dados de entrada:', remetente, destinatario, valor);
+
+  // Encontrar usuários com base no nome, CPF ou e-mail
+  const remetenteUser = await findUser(remetente);
+  const destinatarioUser = await findUser(destinatario);
+
+  console.log('Remetente:', remetenteUser);
+  console.log('Destinatário:', destinatarioUser);
+
+  if (remetenteUser && destinatarioUser && valor > 0 && remetenteUser.saldo >= valor) {
+    try {
+      // Atualizar saldo do remetente
+      await updateSaldo(remetenteUser.id, remetenteUser.saldo - valor);
+
+      // Atualizar saldo do destinatário
+      await updateSaldo(destinatarioUser.id, destinatarioUser.saldo + valor);
+
+      console.log('Transação realizada com sucesso.');
+      res.json({ message: 'Transação realizada com sucesso.' });
+    } catch (error) {
+      console.error('Erro ao realizar a transação:', error);
+      res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  } else {
+    console.log('Transação inválida');
+    res.status(400).json({ error: 'Transação inválida.' });
+  }
+});
+
+// Função para atualizar o saldo no banco de dados
+async function updateSaldo(userId, newSaldo) {
+  return db.promise().query('UPDATE usuarios SET saldo = ? WHERE id = ?', [Number(newSaldo), userId]);
+}
+
+// Função para encontrar usuário por nome, CPF ou e-mail
+async function findUser(identifier) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      'SELECT * FROM usuarios WHERE nome = ? OR cpf = ? OR email = ?',
+      [identifier, identifier, identifier],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        } else if (results.length > 0) {
+          resolve(results[0]);
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
+}
+
+
+
+// Função para obter nome e saldo do usuário do banco de dados
+async function obterNomeESaldoDoUsuario(idUsuario) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT nome, saldo FROM usuarios WHERE id = ?', [idUsuario], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        const usuario = {
+          nome: results[0].nome,
+          saldo: results[0].saldo
+        };
+        resolve(usuario);
+      }
+    });
+  });
+}
+
+async function getUserFromDB(nome) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT * FROM usuarios WHERE nome = ?', [nome], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+
+

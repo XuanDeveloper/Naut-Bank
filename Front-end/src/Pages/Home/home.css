@@ -25,7 +25,10 @@ input {
     font-weight: 400;
     font-size: 15px;
     line-height: 22px;
+<<<<<<< HEAD
     margin-bottom: 10px; /* Adicionado para espaçamento entre os inputs */
+=======
+>>>>>>> dev
 }
 
 input::placeholder {
@@ -64,4 +67,7 @@ input::placeholder {
 .mensagem-erro {
     color: #FF0000;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
