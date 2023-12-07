@@ -1,31 +1,45 @@
 .mainCadastro {
-  color: #E5E5E5;
+  position: relative;
+  color: #0a0a0a;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .CadastroInfo {
-  margin-top: 10vw;
+  position: relative;
+  z-index: 2;
+  margin-top: 29vw;
   margin-left: 8vw;
 }
 
-.Cadastro {
-  margin-top: 3vw;
-  margin-right: 8vw;
+.CardC {
+  position: relative;
+  margin-left: 5vw;
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  padding: 40px 10px;
+  background:#f8f7f7 ;
+  border-radius: 30px;
+  box-shadow: 0px 10px 40px #00000056;
 }
 
-.Baleia {
-  position: absolute;
-  top: 240px;
-  left: 380px;
-  height: 34vw;
+.Cadastro {
+  position: relative;
+  margin-top: 10vw;
+  margin-right: 38vw;
 }
+
 
 .linha-vertical {
-  height: 500px;
-  border-right: 3px solid #1E40AF;
-  margin-top: 100px;
+  position: absolute;
+  margin-top: 300px;
+  width: 100%;
+  border-top:  350px solid ;
+  color: #853535;
 }
 
 

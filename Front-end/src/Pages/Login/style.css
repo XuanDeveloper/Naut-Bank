@@ -37,8 +37,8 @@
   justify-content: center;
   align-items: center; 
   flex-direction: column;
-  padding: 40px 35px;
-  background:#5b2ece ;
+  padding: 40px 10px;
+  background:#f8f7f7 ;
   border-radius: 30px;
   box-shadow: 0px 10px 40px #00000056;
   
@@ -64,7 +64,7 @@
   position: absolute;
   width: 100%;
   border-top:  350px solid ;
-  color: #5b2ece;
+  color: #853535;
   
   
     
