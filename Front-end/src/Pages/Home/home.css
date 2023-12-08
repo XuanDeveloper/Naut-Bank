@@ -1,67 +1,21 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #333;
-    color: #ffffff;
-}
-
-div {
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 20px;
-}
-
-h2, h3 {
-    margin-bottom: 10px;
-    color: #ffffff;
-}
-
-input {
-    background-color: #F0EFFF;
-    border-radius: 8px;
-    border: 0px;
-    width: 270px;
-    height: 48px;
-    padding-left: 30px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 22px;
-    margin-bottom: 10px; /* Adicionado para espaçamento entre os inputs */
-}
-
-input::placeholder {
-    color: #A7A3FF;
-}
-
-@media (max-width: 600px) {
-    input {
-        width: 100%;
-    }
-}
-
-.botao {
-    background-color: #1E40AF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease; /* Adiciona uma transição suave na mudança de cor */
-
-    /* Adiciona efeito de sombra quando hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.botao:hover {
-    background-color: #0D2767; /* Cor alterada no hover */
-}
-
-.mensagem-sucesso {
-    color: #008000;
-}
-
-.mensagem-erro {
-    color: #FF0000;
-}
-
+  }
+  
+  .account-info {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .transfer-section {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  input {
+    width: 100%;
+    text-align: center;
+  }

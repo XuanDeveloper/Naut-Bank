@@ -86,7 +86,7 @@ const Home = () => {
           type="text"
           value={transferTo}
           onChange={(e) => setTransferTo(e.target.value)}
-          placeholder="Digite o CPF ou email do destinatário"
+          placeholder="Digite o CPF/email do destinatário"
         />
         <Botao texto='Transferir' funcao={handleTransfer}/>
       </div>
