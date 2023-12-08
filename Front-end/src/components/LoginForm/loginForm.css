@@ -13,10 +13,11 @@
     font-size: 30px;
     line-height: 45px;
     color: #fff; /* Cor do texto branca */
+    border-radius: 1000px;
 }
 
 .CampoEmail {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .loginForm a {

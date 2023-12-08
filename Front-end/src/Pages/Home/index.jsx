@@ -67,7 +67,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container">
+      <div className="home-container">
       <div className="account-info">
         <h2>Informações da Conta</h2>
         <p>Usuário: {username}</p>
@@ -90,7 +90,7 @@ const Home = () => {
         />
         <Botao texto='Transferir' funcao={handleTransfer}/>
       </div>
-    </div>
+    </div> 
   );
 };
 

@@ -26,7 +26,7 @@ const CadastroForm = () => {
 
     try {
       // Make a registration API request
-      const response = await axios.post(`http://45.255.170.64:6002/cadastro`, {
+      const response = await axios.post(`http://192.168.1.117:6002/cadastro`, {
         email,
         nome,
         cpf,

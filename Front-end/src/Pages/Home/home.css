@@ -1,8 +1,13 @@
 .home-container {
     display: flex;
+    margin: 20px;
+    width: 28vw;
+    background: #315688;
+    border-radius: 20px;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    justify-content: center;
+    color: white;
   }
   
   .account-info {

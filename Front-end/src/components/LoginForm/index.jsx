@@ -15,7 +15,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`http://45.255.170.64:6002/login`, {
+      const response = await axios.post(`http://192.168.1.117:6002/login`, {
         nome,
         senha,
       });
@@ -55,27 +55,18 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="loginForm">
-      <h2>Entrar</h2>
-      <CampoTexto
-        className="CampoNome"
-        type="text"
-        placeholder="Digite o seu Nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-      />
-
-      <CampoTexto
-        className="CampoSenha"
-        type="password"
-        placeholder="Digite a sua senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      />
-
-      <Link to="/cadastro">Esqueceu sua senha</Link>
-      <Botao funcao={handleSubmit} texto="Entrar" />
-    </div>
+    <div className="CardL"> 
+        <div className="loginForm">
+            <h2>Entrar</h2>
+            <CampoTexto className="CampoEmail" type="text" placeholder="Digite o seu E-mail"/>
+            <CampoTexto className="CampoSenha" type="password" placeholder="Digite a sua senha"/>
+            <a><Link to="/cadastro">Esqueceu sua senha</Link></a>
+            <Botao funcao={handleSubmit} texto="Entrar"/>
+           
+           
+            
+        </div>
+       </div> 
   );
 };
 

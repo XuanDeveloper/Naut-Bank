@@ -1,31 +1,55 @@
 .mainCadastro {
-  color: #E5E5E5;
+  position: relative;
+  color: var(--cor-clara);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cor-escura); /* Cor de fundo escura */
+  width: 100vw;
+  height: 100vh;
 }
 
 .CadastroInfo {
-  margin-top: 10vw;
-  margin-left: 8vw;
+  z-index: 2;
+  width: 40vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CardC {
+  position: relative;
+  margin-left: 5vw;
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  padding: 40px 10px;
+  background:#f8f7f7 ;
+  border-radius: 30px;
+  box-shadow: 0px 10px 40px #00000056;
 }
 
 .Cadastro {
-  margin-top: 3vw;
-  margin-right: 8vw;
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
 }
 
-.Baleia {
-  position: absolute;
-  top: 240px;
-  left: 380px;
-  height: 34vw;
-}
 
 .linha-vertical {
-  height: 500px;
-  border-right: 3px solid #1E40AF;
-  margin-top: 100px;
+  position: absolute;
+  width: 100%;
+  border-top:  350px solid ;
+  color: #4d3585;
 }
 
 

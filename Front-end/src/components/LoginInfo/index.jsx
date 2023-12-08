@@ -11,7 +11,7 @@ const LoginInfo = () => {
       <p>Se você não tem uma conta cadastre-se</p>
       <div className="register">
         <p>Você pode se</p> 
-        <a onClick={() => navigate("/cadastro")}>registrar aqui!</a>
+        <a className="link-login" onClick={() => navigate("/cadastro")}>registrar aqui!</a>
       </div>
     </div>
   );

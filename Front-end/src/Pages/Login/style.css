@@ -1,35 +1,69 @@
 :root {
-  --cor-escura: #333;
-  --cor-clara: #E5E5E5;
-  --cor-link: #1E40AF;
+  --cor-escura: #333333;
+  --cor-clara: #8f7adb;
+  --cor-link: #0e2ddb;
 }
 
+
 .mainLogin {
+  position: relative;
   color: var(--cor-clara);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   background-color: var(--cor-escura); /* Cor de fundo escura */
+  width: 100vw;
+  height: 100vh;
+  
 }
 
 .LoginInfo {
-  margin-top: 10vw;
-  margin-left: 8vw;
+  z-index: 2;
+  width: 40vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.CardL{
+  position: relative;
+  margin-left: 5vw;
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  padding: 40px 10px;
+  background:#f8f7f7 ;
+  border-radius: 30px;
+  box-shadow: 0px 10px 40px #00000056;
+  
 }
 
 .Login {
-  margin-top: 5vw;
-  margin-right: 8vw;
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  
 }
 
-.Baleia {
-  width: 35%;
-}
 
 .linha-vertical2 {
-  height: 500px;
-  border-right: 3px solid var(--cor-link);
-  margin-top: 100px;
+  position: absolute;
+  width: 100%;
+  border-top:  350px solid ;
+  color: #4d3585;
+  
+  
+    
 }
 
 @media (max-width: 1340px) {
@@ -50,7 +84,7 @@
 }
 
 @media (max-width: 720px) {
-  .Baleia,
+  
   .mainLogin .linha-vertical2 {
       display: none;
   }
