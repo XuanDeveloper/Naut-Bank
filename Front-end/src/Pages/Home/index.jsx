@@ -41,19 +41,19 @@ const Home = () => {
   const handleTransfer = async () => {
     const amount = parseFloat(transferAmount);
     const targetUser = transferTo.trim();
-
+  
     if (!isNaN(amount) && amount <= balance && targetUser) {
       try {
         // Realiza a chamada para a API de transferência
-        const response = await axios.post('http://192.168.1.117:6002/transferir', {
-          origem: username,
-          destino: targetUser,
+        const response = await axios.post('http://45.255.170.64:6002/transacao', {
+          remetente: username, // Use the logged-in user as the sender
+          destinatario: targetUser,
           valor: amount,
         });
-
+  
         if (response.status === 200) {
           // Atualiza o saldo localmente após a transferência bem-sucedida
-          setBalance(prevBalance => prevBalance - amount);
+          setBalance((prevBalance) => prevBalance - amount);
           setTransferAmount('');
           setTransferTo('');
           console.log('Transferência bem-sucedida');

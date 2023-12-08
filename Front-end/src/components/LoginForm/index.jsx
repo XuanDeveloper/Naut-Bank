@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2'
 
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
@@ -14,7 +15,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://192.168.1.117:6002/login", {
+      const response = await axios.post(`http://45.255.170.64:6002/login`, {
         nome,
         senha,
       });
